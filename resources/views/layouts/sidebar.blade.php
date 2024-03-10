@@ -28,7 +28,7 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('users') }}">
             <i class="fas fa-fw fa-users"></i>
             <span>Asisten</span>
         </a>

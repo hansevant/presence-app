@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -14,7 +15,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('pages.user.index');
+        $users = User::all();
+
+        return view('pages.user.index',  ['users' => $users]);
     }
 
     /**
@@ -24,7 +27,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        // gaada bang
     }
 
     /**
@@ -35,7 +38,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $data = $request->validate([
             'assistant_id' => 'required',
             'name' => 'required',
             'username' => 'required|unique:users',
@@ -43,15 +46,11 @@ class UserController extends Controller
             'role' => 'required',
         ]);
 
-        // Jika validasi gagal, kembalikan pesan kesalahan
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
+        $data['password'] = bcrypt($data['password']);
 
-        // Proses data jika validasi berhasil
-        // Simpan data ke dalam database atau lakukan tindakan lainnya
+        User::create($data);
 
-        return redirect()->route('success.route'); // Ganti 'success.route' dengan nama rute yang sesuai
+        return redirect()->route('users')->with('success', 'Berhasil menambah pengguna baru!'); // Ganti 'success.route' dengan nama rute yang sesuai
     }
 
     /**
@@ -73,7 +72,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::where('assistant_id', $id)->firstOrFail();
+
+        return view('pages.user.edit', ['data' => $user]);
     }
 
     /**
@@ -85,8 +86,39 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Validasi data
+        $validatedData = $request->validate([
+            'assistant_id' => 'required',
+            'name' => 'required',
+            'username' => 'required|unique:users,username,' . $id,
+            'old_password' => 'required',
+            'password' => 'sometimes|confirmed|required',
+            'role' => 'required',
+        ]);
+    
+        // Cari pengguna berdasarkan ID
+        $user = User::findOrFail($id);
+    
+        // Memeriksa apakah password lama sesuai
+        if (!Hash::check($validatedData['old_password'], $user->password)) {
+            return redirect()->back()->with('error', 'Password lama tidak sesuai');
+        }
+    
+        // Jika password baru diisi, update password
+        if ($validatedData['password']) {
+            $user->password = Hash::make($validatedData['password']);
+        }
+    
+        // Update data pengguna
+        $user->assistant_id = $validatedData['assistant_id'];
+        $user->name = $validatedData['name'];
+        $user->username = $validatedData['username'];
+        $user->role = $validatedData['role'];
+        $user->save();
+    
+        return redirect()->route('users')->with('success', 'User berhasil diperbarui');
     }
+    
 
     /**
      * Remove the specified resource from storage.
@@ -96,6 +128,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        dd('d');
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return redirect()->route('users')->with('success', 'User berhasil dihapus');
     }
 }

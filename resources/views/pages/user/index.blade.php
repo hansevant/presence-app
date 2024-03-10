@@ -26,24 +26,42 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Role</th>
-                            <th>Name</th>
+                            <th>No</th>
+                            <th>ID Asisten</th>
+                            <th>Jabatan</th>
+                            <th>Nama Lengkap</th>
                             <th>username</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>#</th>
-                            <th>Role</th>
-                            <th>Name</th>
+                            <th>No</th>
+                            <th>ID Asisten</th>
+                            <th>Jabatan</th>
+                            <th>Nama Lengkap</th>
                             <th>username</th>
                             <th>Action</th>
                         </tr>
                     </tfoot>
                     <tbody>
-                       
+                       @foreach ($users as $user)
+                           <td>{{ $loop->iteration }}</td>
+                           <td>{{ $user->assistant_id }}</td>
+                           <td>{{ $user->role }}</td>
+                           <td>{{ $user->name }}</td>
+                           <td>{{ $user->username }}</td>
+                           <td>
+                                <a href="{{ route('edit.user', ['id' => $user->assistant_id]) }}">
+                                    Edit
+                                </a>
+                                <form action="{{ route('delete.user', ['id' => $user->id]) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-link p-0" onclick="return confirm('Apakah Anda yakin ingin menghapus pengguna ini?')">Hapus</button>
+                                </form>
+                            </td>
+                       @endforeach
                     </tbody>
                 </table>
             </div>
@@ -78,7 +96,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="#" method="POST">
+                    <form action="{{ route('store.user') }}" method="POST">
                         @csrf
                         <div class="form-group">
                             <input type="text" class="form-control form-control-user"
@@ -98,7 +116,7 @@
                         </div>
                         <div class="form-group">
                             <input type="password" class="form-control form-control-user"
-                                placeholder="Masukkan Konfirmasi Password..." name="confirm_password">
+                                placeholder="Masukkan Konfirmasi Password..." name="password_confirmation">
                         </div>
                         <div class="form-group">
                             <select class="form-control form-control-user" name="role">
