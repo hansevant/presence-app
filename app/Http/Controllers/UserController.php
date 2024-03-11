@@ -61,7 +61,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        // sama ini juga gaada bang
     }
 
     /**
@@ -128,7 +128,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        dd('d');
         $user = User::findOrFail($id);
         $user->delete();
 

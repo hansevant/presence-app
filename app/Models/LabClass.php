@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class LabClass extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['class', 'major', 'faculty'];
 }

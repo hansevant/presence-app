@@ -34,13 +34,13 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('class') }}">
             <i class="fas fa-fw fa-briefcase"></i>
             <span>Kelas</span>
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('materials') }}">
             <i class="fas fa-fw fa-book"></i>
             <span>Materi</span>
         </a>
