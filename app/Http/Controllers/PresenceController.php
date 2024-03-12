@@ -18,7 +18,9 @@ class PresenceController extends Controller
      */
     public function index()
     {
-        return view('pages.history.index');
+        $presences = Presence::orderBy('created_at', 'desc')->get();
+
+        return view('pages.history.index', compact('presences'));
     }
 
     public function dashboard(){
@@ -72,7 +74,7 @@ class PresenceController extends Controller
             return redirect()->back()->with('success', 'Kode absen valid.');
         } else {
             // Jika kode absen tidak ditemukan atau sudah digunakan, kembalikan pesan kesalahan
-            dd('tidak okee');
+            // dd('tidak okee');
             return redirect()->back()->with('error', 'Kode absen tidak valid atau sudah digunakan.');
         }
     }
@@ -135,7 +137,9 @@ class PresenceController extends Controller
      */
     public function show(Presence $presence)
     {
-        return view('pages.history.detail');
+        $auth_id = Auth::user()->assistant_id;
+        $presences = Presence::where('assistant_id', $auth_id)->orderBy('created_at', 'desc')->get();
+        return view('pages.history.detail', compact('presences'));
     }
 
     /**

@@ -20,11 +20,11 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th width='30px'>No</th>
+                            <th width='20px'>No</th>
                             <th>Nama Kelas</th>
                             <th>Jurusan</th>
                             <th>Fakultas</th>
-                            <th>Action</th>
+                            <th width='150px'>Action</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -39,41 +39,24 @@
                     <tbody>
                         @foreach ($classes as $class)
                         <tr>
-                           <td>{{ $loop->iteration }}</td>
-                           <td>{{ $class->class }}</td>
-                           <td>{{ $class->major }}</td>
-                           <td>{{ $class->faculty }}</td>
-                           <td>
-                                <a href="{{ route('edit.class', ['id' => $class->id]) }}">
-                                    Edit
-                                </a>
-                                <form action="{{ route('delete.class', ['id' => $class->id]) }}" method="POST" style="display: inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-link p-0" onclick="return confirm('Apakah Anda yakin ingin menghapus pengguna ini?')">Hapus</button>
-                                </form>
-                            </td>
+                            <td style="text-align: center">{{ $loop->iteration }}</td>
+                            <td>{{ $class->class }}</td>
+                            <td>{{ $class->major }}</td>
+                            <td>{{ $class->faculty }}</td>
+                            <td>
+                                    <a href="{{ route('edit.class', ['id' => $class->id]) }}" class="btn btn-white border py-1 px-3">
+                                        Edit
+                                    </a>
+                                    <form action="{{ route('delete.class', ['id' => $class->id]) }}" method="POST" style="display: inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger border py-1 px-3" onclick="return confirm('Apakah Anda yakin ingin menghapus pengguna ini?')">Hapus</button>
+                                    </form>
+                                </td>
                         </tr>
                        @endforeach
                     </tbody>
                 </table>
-            </div>
-        </div>
-    </div>
-    
-    <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Info Penambahan User</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>untuk pembuatan akun ini hanya menambahkan data data yang dibutuhkan dan password default awalnya adalah <code>password</code>. <br> Lalu jika sudah silahkan login dengan password defaultnya dan ganti passwordnya terlebih dahulu.</p>
-                </div>
             </div>
         </div>
     </div>

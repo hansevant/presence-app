@@ -3,6 +3,7 @@
 @push('css')
     <link href="{{ ('assets/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 @endpush
+
 <div class="container-fluid">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -13,25 +14,19 @@
                 <span class="icon text-white-50">
                     <i class="fas fa-plus"></i>
                 </span>
-                <span class="text">Add User</span>
+                <span class="text">Tambah Pengguna</span>
             </a>
-            <button class="btn btn-outline-dark btn-icon-split mb-3">
-                <span class="icon text-white-50">
-                    <i class="fas fa-tools"></i>
-                </span>
-                <span class="text">Filter</span>
-            </button>
 
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>No</th>
+                            <th width='10px'>No</th>
                             <th>ID Asisten</th>
                             <th>Jabatan</th>
                             <th>Nama Lengkap</th>
                             <th>username</th>
-                            <th>Action</th>
+                            <th width='150px'>Action</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -47,42 +42,25 @@
                     <tbody>
                         @foreach ($users as $user)
                         <tr>
-                           <td>{{ $loop->iteration }}</td>
+                           <td style="text-align: center">{{ $loop->iteration }}</td>
                            <td>{{ $user->assistant_id }}</td>
                            <td>{{ $user->role }}</td>
                            <td>{{ $user->name }}</td>
                            <td>{{ $user->username }}</td>
                            <td>
-                                <a href="{{ route('edit.user', ['id' => $user->assistant_id]) }}">
+                                <a href="{{ route('edit.user', ['id' => $user->assistant_id]) }}" class="btn btn-white border py-1 px-3">
                                     Edit
                                 </a>
                                 <form action="{{ route('delete.user', ['id' => $user->id]) }}" method="POST" style="display: inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-link p-0" onclick="return confirm('Apakah Anda yakin ingin menghapus pengguna ini?')">Hapus</button>
+                                    <button type="submit" class="btn btn-danger border py-1 px-3" onclick="return confirm('Apakah Anda yakin ingin menghapus pengguna ini?')">Hapus</button>
                                 </form>
                             </td>
                         </tr>
                        @endforeach
                     </tbody>
                 </table>
-            </div>
-        </div>
-    </div>
-    
-    <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Info Penambahan User</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>untuk pembuatan akun ini hanya menambahkan data data yang dibutuhkan dan password default awalnya adalah <code>password</code>. <br> Lalu jika sudah silahkan login dengan password defaultnya dan ganti passwordnya terlebih dahulu.</p>
-                </div>
             </div>
         </div>
     </div>

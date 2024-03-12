@@ -47,7 +47,7 @@ class CodeController extends Controller
             'maker_by' => $user->assistant_id
         ]);
 
-        return redirect()->route('code')->with('success', 'Berhasil membuat kode absen!');
+        return redirect()->back()->with('success', "Berhasil membuat kode absen! berikut kodenya : $randomCode");
     }
 
     /**

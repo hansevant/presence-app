@@ -69,9 +69,19 @@
                 </div>
                 <div class="card-body">
                     <h1>Selamat Datang {{ $user->name }} - {{ $user->role }}</h1>
-                    <h2 id="clock"></h2>
-                    <br>
-                    <p class="bg-info text-white p-1 rounded d-inline">*untuk kode absen silahkan minta ke PJ , Admin dan Staff</p>
+                    <h2 id="clock" class="mb-3"></h2>
+                    @if(Auth::user()->role !== 'Asisten')
+                        <form action="{{ route('store.code') }}" method="POST" style="display: inline;">
+                            @csrf
+                            <button class="btn btn-outline-dark btn-icon-split mb-1 bg-gray-500">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-plus"></i>
+                                </span>
+                                <span class="text">Buat Kode Absen</span>
+                            </button>
+                        </form>
+                    @endif
+                    <span class="bg-info text-white p-2 mt-2 rounded">*untuk kode absen silahkan minta ke PJ , Admin dan Staff</span>
                 </div>
             </div>
         </div>
@@ -82,7 +92,7 @@
     function startTime() {
         var options = {
             timeZone: 'Asia/Jakarta',
-            hour12: false, // Untuk menampilkan waktu dalam format 24 jam
+            hour12: false,
             weekday: 'long',
             year: 'numeric',
             month: 'long',
