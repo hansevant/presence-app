@@ -21,16 +21,6 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        // gaada bang
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -51,17 +41,6 @@ class UserController extends Controller
         User::create($data);
 
         return redirect()->route('users')->with('success', 'Berhasil menambah pengguna baru!'); // Ganti 'success.route' dengan nama rute yang sesuai
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        // sama ini juga gaada bang
     }
 
     /**

@@ -109,27 +109,6 @@ class PresenceController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  \App\Models\Presence  $presence
@@ -141,38 +120,5 @@ class PresenceController extends Controller
         $presences = Presence::where('assistant_id', $auth_id)->orderBy('created_at', 'desc')->get();
         return view('pages.history.detail', compact('presences'));
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Presence  $presence
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Presence $presence)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Presence  $presence
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Presence $presence)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Presence  $presence
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Presence $presence)
-    {
-        //
-    }
+    
 }
