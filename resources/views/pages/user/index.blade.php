@@ -45,7 +45,8 @@
                         </tr>
                     </tfoot>
                     <tbody>
-                       @foreach ($users as $user)
+                        @foreach ($users as $user)
+                        <tr>
                            <td>{{ $loop->iteration }}</td>
                            <td>{{ $user->assistant_id }}</td>
                            <td>{{ $user->role }}</td>
@@ -61,6 +62,7 @@
                                     <button type="submit" class="btn btn-link p-0" onclick="return confirm('Apakah Anda yakin ingin menghapus pengguna ini?')">Hapus</button>
                                 </form>
                             </td>
+                        </tr>
                        @endforeach
                     </tbody>
                 </table>

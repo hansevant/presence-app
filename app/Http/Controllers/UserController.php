@@ -39,7 +39,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'assistant_id' => 'required',
+            'assistant_id' => 'required|unique:users',
             'name' => 'required',
             'username' => 'required|unique:users',
             'password' => 'required|confirmed',

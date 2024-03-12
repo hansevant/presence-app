@@ -17,7 +17,7 @@ class CreateCodesTable extends Migration
             $table->id();
             $table->string('code');
             $table->string('maker_by');
-            $table->string('used_by');
+            $table->string('used_by')->nullable();
             $table->timestamps();
         });
     }

@@ -33,4 +33,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
     ];
+    public function codesMade()
+    {
+        return $this->hasMany(Code::class, 'maker_by', 'assistant_id');
+    }
+
+    // Relasi dengan kode yang digunakan
+    public function codesUsed()
+    {
+        return $this->hasMany(Code::class, 'used_by', 'assistant_id');
+    }
 }

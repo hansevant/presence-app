@@ -12,7 +12,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('presence') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span>
         </a>
@@ -20,7 +20,7 @@
 
     <!-- Divider -->
     <hr class="sidebar-divider">
-
+    @if(session('role') === 'Staff' || session('role') === 'Admin')
     <!-- Heading -->
     <div class="sidebar-heading">
        Data
@@ -48,22 +48,24 @@
     
     <!-- Divider -->
     <hr class="sidebar-divider">
-    
+    @endif
     <!-- Heading -->
+    @if(session('role') === 'Staff' || session('role') === 'Admin' || session('role') === 'PJ')
     <div class="sidebar-heading">
         Kode
     </div>
     
     <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link" href="modul.html">
+        <a class="nav-link" href="{{ route('code') }}">
             <i class="fas fa-fw fa-key"></i>
             <span>Kode Absen</span>
         </a>
     </li>
-    
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
+    @endif
+
     <div class="sidebar-heading">
         Riwayat Absen
     </div>
@@ -75,12 +77,14 @@
         </a>
     </li>
 
+    @if(session('role') === 'Staff' || session('role') === 'Admin' || session('role') === 'PJ')
     <li class="nav-item">
         <a class="nav-link" href="#">
             <i class="fas fa-fw fa-tasks"></i>
             <span>Report</span>
         </a>
     </li>
+    @endif
 
     <hr class="sidebar-divider d-none d-md-block">
     <!-- Sidebar Toggler (Sidebar) -->

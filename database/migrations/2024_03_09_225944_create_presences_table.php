@@ -22,13 +22,13 @@ class CreatePresencesTable extends Migration
             $table->string('teaching_role');
             $table->date('date');
             $table->time('start');
-            $table->time('end');
-            $table->integer('duration');
+            $table->time('end')->nullable();
+            $table->integer('duration')->nullable();
             $table->timestamps();
 
-            $table->foreign('class_id')->references('id')->on('lab_classes')->onDelete('cascade');
-            $table->foreign('material_id')->references('id')->on('materials')->onDelete('cascade');
-            $table->foreign('assistant_id')->references('assistant_id')->on('users')->onDelete('cascade');
+            // $table->foreign('class_id')->references('id')->on('lab_classes')->onDelete('cascade');
+            // $table->foreign('material_id')->references('id')->on('materials')->onDelete('cascade');
+            // $table->foreign('assistant_id')->references('assistant_id')->on('users')->onDelete('cascade');
             $table->foreign('code_id')->references('id')->on('codes')->onDelete('cascade');
         });
     }
