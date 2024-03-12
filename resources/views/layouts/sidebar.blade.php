@@ -71,7 +71,7 @@
     </div>
 
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('history') }}">
             <i class="fas fa-fw fa-clock"></i>
             <span>Riwayat</span>
         </a>
@@ -79,7 +79,7 @@
 
     @if(session('role') === 'Staff' || session('role') === 'Admin' || session('role') === 'PJ')
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('report') }}">
             <i class="fas fa-fw fa-tasks"></i>
             <span>Report</span>
         </a>

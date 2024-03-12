@@ -6,9 +6,6 @@ use App\Http\Controllers\CodeController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\PresenceController;
 use App\Http\Controllers\UserController;
-use App\Models\LabClass;
-use App\Models\Material;
-use App\Models\Presence;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,9 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['middleware' => 'guest'], function () {
-    Route::get('/', function () {
-        return view('index');
-    })->name('login');
+    Route::get('/', [AuthController::class, 'index'])->name('login');
     Route::post('/login', [AuthController::class, 'login'])->name('process.login');
 });
 Route::group(['middleware' => 'auth'], function () {
@@ -34,7 +29,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/presence', [PresenceController::class, 'dashboard'])->name('presence');
     Route::post('/check-in', [PresenceController::class, 'checkIn'])->name('check.in');
     Route::get('/check-out', [PresenceController::class, 'checkOut'])->name('check.out');
-
+    Route::get('/history', [PresenceController::class, 'show'])->name('history');
+    
     Route::middleware(['checkRole:Admin,Staff'])->group(function () {
         Route::get('/users', [UserController::class, 'index'])->name('users');
         Route::post('/users', [UserController::class, 'store'])->name('store.user');
@@ -53,6 +49,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/class/{id}/edit', [ClassController::class, 'edit'])->name('edit.class');
         Route::put('/class/{id}/update', [ClassController::class, 'update'])->name('update.class');
         Route::delete('/class/{id}', [ClassController::class, 'destroy'])->name('delete.class');
+        
+        Route::get('/report', [PresenceController::class, 'index'])->name('report');
     });
 
     Route::middleware(['checkRole:Admin,Staff,PJ'])->group(function () {

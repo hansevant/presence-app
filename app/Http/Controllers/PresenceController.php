@@ -18,7 +18,7 @@ class PresenceController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages.history.index');
     }
 
     public function dashboard(){
@@ -135,7 +135,7 @@ class PresenceController extends Controller
      */
     public function show(Presence $presence)
     {
-        //
+        return view('pages.history.detail');
     }
 
     /**
