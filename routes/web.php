@@ -25,7 +25,6 @@ Route::group(['middleware' => 'guest'], function () {
 });
 Route::group(['middleware' => 'auth'], function () {
 
-
     Route::get('/presence', [PresenceController::class, 'dashboard'])->name('presence');
     Route::post('/check-in', [PresenceController::class, 'checkIn'])->name('check.in');
     Route::get('/check-out', [PresenceController::class, 'checkOut'])->name('check.out');
