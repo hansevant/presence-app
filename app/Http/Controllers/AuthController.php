@@ -8,9 +8,17 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    public function index(){
-        return view('index');
+    protected $judul;
+
+    public function __construct()
+    {
+        $this->judul = "Login - Presence App";
     }
+
+    public function index(){
+        return view('index', ['judul' => $this->judul]);
+    }
+    
     public function login(Request $request){
 
         $validator = Validator::make($request->all(), [

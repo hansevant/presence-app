@@ -77,7 +77,7 @@
         </a>
     </li>
 
-    @if(session('role') === 'Staff' || session('role') === 'Admin' || session('role') === 'PJ')
+    @if(session('role') === 'Staff' || session('role') === 'Admin')
     <li class="nav-item">
         <a class="nav-link" href="{{ route('report') }}">
             <i class="fas fa-fw fa-tasks"></i>
@@ -87,6 +87,17 @@
     @endif
 
     <hr class="sidebar-divider d-none d-md-block">
+
+    <li class="nav-item">
+        <form id="logoutForm" action="{{ route('logout') }}" method="POST" class="">
+            @csrf
+            @method('DELETE') 
+            <button class="btn btn-link nav-link" type="submit">
+                <i class="fas fa-sign-out-alt fa-sm fa-fw"></i> Logout
+            </button>
+        </form>
+    </li>
+    
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
