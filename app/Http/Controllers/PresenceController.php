@@ -16,11 +16,40 @@ class PresenceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $filterDate = $request->input('filter_date');
+
+        if ($request->has('filter_date') && $filterDate !== null) {
+            return $this->filter($request);
+        }
+
         $presences = Presence::orderBy('created_at', 'desc')->get();
 
         return view('pages.history.index', compact('presences'));
+    }
+
+    public function filter(Request $request)
+    {
+        $filterDate = $request->input('filter_date');
+        $presences = Presence::whereDate('date', '=', $filterDate)
+                            ->orderBy('created_at', 'desc')
+                            ->get();
+
+        return view('pages.history.index', compact('presences'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Presence  $presence
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Presence $presence)
+    {
+        $auth_id = Auth::user()->assistant_id;
+        $presences = Presence::where('assistant_id', $auth_id)->orderBy('created_at', 'desc')->get();
+        return view('pages.history.detail', compact('presences'));
     }
 
     public function dashboard(){
@@ -106,19 +135,6 @@ class PresenceController extends Controller
         } else {
             return redirect()->back()->with('error', 'Anda belum melakukan check-in.');
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Presence  $presence
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Presence $presence)
-    {
-        $auth_id = Auth::user()->assistant_id;
-        $presences = Presence::where('assistant_id', $auth_id)->orderBy('created_at', 'desc')->get();
-        return view('pages.history.detail', compact('presences'));
     }
     
 }

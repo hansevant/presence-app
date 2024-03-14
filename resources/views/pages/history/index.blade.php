@@ -17,6 +17,23 @@
             <h6 class="m-0 font-weight-bold text-primary">Data Report Absen</h6>
         </div>
         <div class="card-body">
+            <form action="{{ route('report') }}" method="GET" class="form-inline justify-content-start mt-3">
+                <div class="form-group">
+                    <label for="filter_date" class="mr-2">Filter Tanggal:</label>
+                    <input type="date" name="filter_date" id="filter_date" class="form-control mr-2">
+                </div>
+                {{-- <div class="form-group">
+                    <label for="filter_asisten" class="mr-2">Filter Asisten:</label>
+                    <select name="filter_asisten" id="filter_asisten" class="form-control mr-2">
+                        <option value="">Pilih Asisten</option>
+                        @foreach($presences as $presence)
+                            <option value="{{ $presence->user->assistant_id  }}">{{ $presence->user->name  }}</option>
+                        @endforeach
+                    </select>
+                </div> --}}
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </form>
+            <hr>
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="font-size: 14px">
                     <thead>
