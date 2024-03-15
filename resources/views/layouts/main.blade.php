@@ -19,7 +19,7 @@
         rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="{{ asset('icon.png')}}">
     <!-- Custom styles for this template-->
-    <link href="{{ asset('assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/minimize.css') }}" rel="stylesheet">
 
     @stack('css')
 </head>
